@@ -2,7 +2,13 @@
 
 <ul>
     <?php foreach ($this->meetups as $meetup): ?>
-    <li><?= $meetup->getTitle() ?></li>
+    <li>
+        <h2><strong><?= $meetup->getTitle() ?></strong></h2>
+        <a href="<?= $this->url('meetup/get'); ?><?= $meetup->getId() ?>" class="btn btn-primary">Accéder</a>
+        <a href="<?= $this->url('meetup/edit'); ?><?= $meetup->getId() ?>" class="btn btn-default">Modifier</a>
+        <a href="<?= $this->url('meetup/delete'); ?><?= $meetup->getId() ?>" class="btn btn-danger">Supprimer</a>
+        <p>Du <span><?= date_format($meetup->getStart(),'d-m-Y') ?></span> au <span><?=  date_format($meetup->getEnd(),'d-m-Y') ?></span></p>
+    </li>
     <?php endforeach; ?>
 </ul>
 

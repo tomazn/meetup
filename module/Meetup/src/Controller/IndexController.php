@@ -6,7 +6,6 @@ namespace Meetup\Controller;
 
 use Meetup\Repository\MeetupRepository;
 use Meetup\Form\MeetupForm;
-use Zend\Form\Element\DateTime;
 use Zend\Http\PhpEnvironment\Request;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -46,18 +45,26 @@ final class IndexController extends AbstractActionController
             $form->setData($request->getPost());
             if ($form->isValid()) {
 
+                $title = $form->getData()['title'];
+                $description = $form->getData()['description'];
                 $start = new \DateTime($form->getData()['start']);
                 $end  = new \DateTime($form->getData()['end']);
 
-                $meetup = $this->meetupRepository->createMeetup(
-                    $form->getData()['title'],
-                    $form->getData()['description'],
-                    $start,
-                    $end
-                );
+                if($end > $start){
+                    $meetup = $this->meetupRepository->createMeetup(
+                        $title,
+                        $description,
+                        $start,
+                        $end
+                    );
 
-                $this->meetupRepository->add($meetup);
-                return $this->redirect()->toRoute('meetup');
+                    $this->meetupRepository->add($meetup);
+                    return $this->redirect()->toRoute('meetup');
+                }else{
+
+                }
+
+
             }
         }
 
@@ -66,5 +73,74 @@ final class IndexController extends AbstractActionController
         return new ViewModel([
             'form' => $form,
         ]);
+    }
+
+    public function getAction()
+    {
+            $id = $this->params('id');
+            $meetup = $this->meetupRepository->get($id);
+
+            return new ViewModel([
+               'meetup' => $meetup
+            ]);
+    }
+
+    public function editAction()
+    {
+        $request = $this->getRequest();
+
+        $id = $this->params('id');
+
+        $meetup = $this->meetupRepository->get($id);
+
+        $form = $this->meetupForm;
+
+        $data = [
+            'title' => $meetup->getTitle(),
+            'description' => $meetup->getDescription(),
+            'start' => $meetup->getStart(),
+            'end' => $meetup->getEnd()
+        ];
+
+        $form->setData($data);
+
+        if ($request->isPost()) {
+            $form->setData($request->getPost());
+            if ($form->isValid()) {
+
+                $title = $form->getData()['title'];
+                $description = $form->getData()['description'];
+                $start = new \DateTime($form->getData()['start']);
+                $end  = new \DateTime($form->getData()['end']);
+
+                if($end > $start){
+                    $meetup->setTitle($title);
+                    $meetup->setDescription($description);
+                    $meetup->setStart($start);
+                    $meetup->setEnd($end);
+
+                    $this->meetupRepository->edit($meetup);
+                    return $this->redirect()->toRoute('meetup');
+                }else{
+
+                }
+
+
+            }
+        }
+
+        $form->prepare();
+
+        return new ViewModel([
+            'form' => $form,
+        ]);
+    }
+
+    public function deleteAction()
+    {
+        $id = $this->params('id');
+        $meetup = $this->meetupRepository->get($id);
+        $this->meetupRepository->delete($meetup);
+
     }
 }

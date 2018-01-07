@@ -1,0 +1,3 @@
+<h1><u><?= $meetup->getTitle() ?></u></h1>
+<p><?= $meetup->getDescription() ?></p>
+<p>Du <span><?= date_format($meetup->getStart(),'d-m-Y') ?></span> au <span><?=  date_format($meetup->getEnd(),'d-m-Y') ?></span></p>
