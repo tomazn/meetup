@@ -28,7 +28,7 @@ final class MeetupRepository extends EntityRepository
         $this->getEntityManager()->flush();
     }
 
-    public function get($id) : Meetup
+    public function get($id)
     {
         $meetup = $this->getEntityManager()->getRepository(Meetup::class)->find($id);
         return $meetup;

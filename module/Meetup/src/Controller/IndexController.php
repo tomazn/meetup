@@ -61,7 +61,7 @@ final class IndexController extends AbstractActionController
                     $this->meetupRepository->add($meetup);
                     return $this->redirect()->toRoute('meetup');
                 }else{
-
+                    throw new \Exception("La date de fin est inférieur à la date de début.");
                 }
 
 
@@ -80,6 +80,10 @@ final class IndexController extends AbstractActionController
             $id = $this->params('id');
             $meetup = $this->meetupRepository->get($id);
 
+            if(is_null($meetup)){
+                throw new \Exception("Ce meetup n'exsite pas.");
+            }
+
             return new ViewModel([
                'meetup' => $meetup
             ]);
@@ -92,6 +96,10 @@ final class IndexController extends AbstractActionController
         $id = $this->params('id');
 
         $meetup = $this->meetupRepository->get($id);
+
+        if(is_null($meetup)){
+            throw new \Exception("Ce meetup n'exsite pas.");
+        }
 
         $form = $this->meetupForm;
 
@@ -122,7 +130,7 @@ final class IndexController extends AbstractActionController
                     $this->meetupRepository->edit($meetup);
                     return $this->redirect()->toRoute('meetup');
                 }else{
-
+                    throw new \Exception("La date de fin est inférieur à la date de début.");
                 }
 
 
@@ -140,7 +148,12 @@ final class IndexController extends AbstractActionController
     {
         $id = $this->params('id');
         $meetup = $this->meetupRepository->get($id);
-        $this->meetupRepository->delete($meetup);
 
+        if(is_null($meetup)){
+            throw new \Exception("Ce meetup n'exsite pas.");
+        }
+
+        $this->meetupRepository->delete($meetup);
+        return $this->redirect()->toRoute('meetup');
     }
 }

@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace Meetup;
+
 use Meetup\Form\MeetupForm;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
@@ -67,6 +69,11 @@ return [
             Controller\IndexController::class => Controller\IndexControllerFactory::class,
         ],
     ],
+    'validators' => array(
+        'factories' => array(
+            Validator\MeetupDateValidator::class => InvokableFactory::class,
+        ),
+    ),
     'service_manager' => [
         'factories' => [
             MeetupForm::class => InvokableFactory::class,

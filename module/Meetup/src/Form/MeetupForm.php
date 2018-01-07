@@ -4,10 +4,14 @@ declare(strict_types=1);
 
 namespace Meetup\Form;
 
+use Meetup\Module;
 use Zend\Form\Element;
 use Zend\Form\Form;
 use Zend\InputFilter\InputFilterProviderInterface;
 use Zend\Validator\StringLength;
+
+use Meetup\Validator;
+
 
 class MeetupForm extends Form implements InputFilterProviderInterface
 {
@@ -79,6 +83,13 @@ class MeetupForm extends Form implements InputFilterProviderInterface
                             'min' => 5,
                             'max' => 300,
                         ],
+                    ],
+                ],
+            ],
+            'start' => [
+                'validators' => [
+                    [
+                        'name' => Validator\MeetupDateValidator::class
                     ],
                 ],
             ],
