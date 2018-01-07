@@ -23,8 +23,11 @@ class MeetupForm extends Form implements InputFilterProviderInterface
             'type' => Element\Text::class,
             'name' => 'title',
             'options' => [
-                'label' => 'Title',
+                'label' => 'Titre',
             ],
+            'attributes' => [
+                'class' => 'form-control'
+            ]
         ]);
 
         $this->add([
@@ -33,6 +36,9 @@ class MeetupForm extends Form implements InputFilterProviderInterface
             'options' => [
                 'label' => 'Description',
             ],
+            'attributes' => [
+                'class' => 'form-control'
+            ]
         ]);
 
         $this->add([
@@ -41,6 +47,9 @@ class MeetupForm extends Form implements InputFilterProviderInterface
             'options' => [
                 'label' => 'Début'
             ],
+            'attributes' => [
+                'class' => 'form-control'
+            ]
         ]);
 
         $this->add([
@@ -49,13 +58,17 @@ class MeetupForm extends Form implements InputFilterProviderInterface
             'options' => [
                 'label' => 'Fin'
             ],
+            'attributes' => [
+                'class' => 'form-control'
+            ]
         ]);
 
         $this->add([
             'type' => Element\Submit::class,
             'name' => 'submit',
             'attributes' => [
-                'value' => 'Submit'
+                'value' => 'Submit',
+                'class' => 'btn btn-primary'
             ],
         ]);
 

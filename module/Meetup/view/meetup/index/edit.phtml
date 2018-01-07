@@ -1,4 +1,4 @@
-<h1>Edit a meetup</h1>
+<h1><u>Edit a meetup</u></h1>
 
 <?php
 $form = $this->form; /* @var $form \Zend\Form\Form */
@@ -6,14 +6,24 @@ $form = $this->form; /* @var $form \Zend\Form\Form */
 
 <?= $this->form()->openTag($form); ?>
 
+<div class="form-group">
 <?= $this->formRow($form->get('title')) ?>
+</div>
 
+<div class="form-group">
 <?= $this->formRow($form->get('description')) ?>
+</div>
 
+<div class="form-group">
 <?= $this->formRow($form->get('start')) ?>
+</div>
 
+<div class="form-group">
 <?= $this->formRow($form->get('end')) ?>
+</div>
 
+<div class="form-group">
 <?= $this->formInput($form->get('submit')) ?>
+</div>
 
 <?= $this->form()->closeTag($form); ?>
