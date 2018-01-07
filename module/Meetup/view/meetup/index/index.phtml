@@ -22,6 +22,12 @@
                     </td>
                 </tr>
             <?php endforeach; ?>
+            <?php if(sizeof($this->meetups) <= 0): ?>
+                <td>
+                    <p>Aucun meetup.</p>
+                </td>
+            <td></td>
+            <?php endif ?>
         </table>
     </div>
 

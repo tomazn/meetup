@@ -99,6 +99,13 @@ class MeetupForm extends Form implements InputFilterProviderInterface
                     ],
                 ],
             ],
+            'end' => [
+                'validators' => [
+                    [
+                        'name' => Validator\MeetupDateValidator::class
+                    ],
+                ],
+            ],
             'start' => [
                 'validators' => [
                     [

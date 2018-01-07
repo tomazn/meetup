@@ -16,7 +16,8 @@ class MeetupDateValidator extends AbstractValidator
     public function isValid($value, $context = null)
     {
         if(is_array($context)) {
-            $start = $value;
+            //Can't take value because we don't know if value is start or end to compare with the other one
+            $start = $context['start'];
             $end = $context['end'];
 
             if($start > $end){
