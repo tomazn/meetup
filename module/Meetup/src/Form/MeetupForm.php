@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Meetup\Form;
 
-use Meetup\Module;
 use Zend\Form\Element;
 use Zend\Form\Form;
 use Zend\InputFilter\InputFilterProviderInterface;
@@ -87,6 +86,14 @@ class MeetupForm extends Form implements InputFilterProviderInterface
                         ],
                     ],
                 ],
+                'filters' => [
+                    [
+                        'name' => 'StringTrim',
+                    ],
+                    [
+                        'name' => 'Alnum',
+                    ],
+                ],
             ],
             'description' => [
                 'validators' => [
@@ -98,6 +105,11 @@ class MeetupForm extends Form implements InputFilterProviderInterface
                         ],
                     ],
                 ],
+                'filters' => [
+                    [
+                        'name' => 'StringTrim'
+                    ]
+                ]
             ],
             'end' => [
                 'validators' => [

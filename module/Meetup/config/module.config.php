@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Meetup;
 
 use Meetup\Form\MeetupForm;
+use Meetup\Form\ParticipantForm;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Meetup\Controller;
@@ -62,11 +63,61 @@ return [
                     ],
                 ],
             ],
+            'participant' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route'    => '/participant',
+                    'defaults' => [
+                        'controller' => Controller\ParticipantController::class,
+                        'action'     => 'index',
+                    ],
+                ],
+                'may_terminate' => true,
+                'child_routes' => [
+                    'add' => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route'    => '/new',
+                            'defaults' => [
+                                'action'     => 'add',
+                            ],
+                        ],
+                    ],
+                    'get' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route'    => '/get/[:id]',
+                            'defaults' => [
+                                'action'     => 'get',
+                            ],
+                        ],
+                    ],
+                    'edit' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route'    => '/edit/[:id]',
+                            'defaults' => [
+                                'action'     => 'edit',
+                            ],
+                        ],
+                    ],
+                    'delete' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route'    => '/delete/[:id]',
+                            'defaults' => [
+                                'action'     => 'delete',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
         ],
     ],
     'controllers' => [
         'factories' => [
             Controller\IndexController::class => Controller\IndexControllerFactory::class,
+            Controller\ParticipantController::class => Controller\ParticipantControllerFactory::class,
         ],
     ],
     'validators' => array(
@@ -77,6 +128,7 @@ return [
     'service_manager' => [
         'factories' => [
             MeetupForm::class => InvokableFactory::class,
+            ParticipantForm::class => InvokableFactory::class,
         ],
     ],
     'view_manager' => [
@@ -85,6 +137,10 @@ return [
             'meetup/index/add' => __DIR__ . '/../view/meetup/index/add.phtml',
             'meetup/index/get' => __DIR__ . '/../view/meetup/index/get.phtml',
             'meetup/index/edit' => __DIR__ . '/../view/meetup/index/edit.phtml',
+            'meetup/participant/index' => __DIR__ . '/../view/meetup/participant/index.phtml',
+            'meetup/participant/add' => __DIR__ . '/../view/meetup/participant/add.phtml',
+            'meetup/participant/get' => __DIR__ . '/../view/meetup/participant/get.phtml',
+            'meetup/participant/edit' => __DIR__ . '/../view/meetup/participant/edit.phtml',
         ],
     ],
     'doctrine' => [
